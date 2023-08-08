@@ -31,7 +31,7 @@ import ManuscriptReader from "@src/components/organisms/ManuscriptReader";
 import PrivateViewer from "./PrivateViewer";
 import { isMobile } from "react-device-detect";
 import MobileReader from "@src/components/organisms/ManuscriptReader/MobileReader/MobileReader";
-
+import { Compose } from "@src/components/organisms/Compose";
 const Terms = lazy(() => import("@src/components/screens/Terms"));
 const Privacy = lazy(() => import("@src/components/screens/Privacy"));
 const App = lazy(() => import("@src/App/App"));
@@ -59,6 +59,7 @@ export const appRouter = createBrowserRouter(
         <Route path="admin/analytics" element={<AdminAnalyticsScreen />} />
         <Route path="invite" element={<Invite />} />
         <Route path="poi-lookup" element={<PoiLookup />} />
+        <Route path="compose" element={<Compose />} />
         <Route path="nodes/*" element={<Nodes />}>
           <Route path="start" element={<PaneNodeCollection />} />
           <Route path="objects/*">

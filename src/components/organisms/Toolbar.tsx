@@ -1,8 +1,9 @@
 import React, { useEffect, useState } from "react";
 import { PresentationChartBarIcon } from "@heroicons/react/outline";
 import { lockScroll, restoreScroll } from "@components/utils";
-import { IconAuthor, IconHelp, IconNodeCollection } from "@icons";
+import { IconAuthor, IconHelp, IconNodeCollection, IconPiGraphFill } from "@icons";
 import PaneNodeCollection from "./PaneNodeCollection";
+import { Compose } from "./Compose";
 import PaneUserProfile from "./PaneUserProfile";
 import { app, site } from "@src/constants/routes";
 import { Link, useLocation } from "react-router-dom";
@@ -15,9 +16,11 @@ import {
 import AdminAnalyticsScreen from "../screens/adminAnalyticsScreen";
 import { useGetUser } from "@src/hooks/useGetUser";
 import { AppPreferences } from "@src/state/preferences/types";
+import { a } from "react-spring";
 
 export enum TOOLBAR_ENTRY {
   collection,
+  compose,
   drive,
   profile,
   latex,
@@ -60,6 +63,12 @@ const buttons: ToolbarIconsProps[] = [
     Pane: PaneNodeCollection,
     name: TOOLBAR_ENTRY.collection,
     route: `${site.app}${app.nodes}`,
+  },
+  {
+    Icon: IconPiGraphFill,
+    Pane: Compose,
+    name: TOOLBAR_ENTRY.compose,
+    route: `${site.app}${app.compose}`,
   },
   {
     Icon: IconAuthor,

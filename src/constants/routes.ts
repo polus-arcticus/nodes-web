@@ -25,6 +25,7 @@ export enum app {
   index = "/",
   profile = "/profile",
   updateEmail = "/updateEmail",
+  compose = "/compose",
   nodes = "/nodes",
   admin = "/admin",
   adminAnalytics = "/admin/analytics",

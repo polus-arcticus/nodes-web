@@ -154,6 +154,7 @@ import { ReactComponent as IconMoveDir } from "@images/icons/move-dir.svg";
 import { ReactComponent as IconGoogleScholar } from "@images/google_scholar.svg";
 import { ReactComponent as IconAffiliation } from "@images/affiliation.svg";
 import { ReactComponent as IconRor } from "@images/ror.svg";
+import { ReactComponent as IconPiGraphFill } from '@images/icons/pi-graph-fill.svg';
 
 export type SvgIconProps = FC<
   React.SVGProps<SVGSVGElement> & {
@@ -320,4 +321,5 @@ export {
   IconGoogleScholar,
   IconAffiliation,
   IconRor,
+  IconPiGraphFill
 };
