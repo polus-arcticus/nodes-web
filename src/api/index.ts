@@ -638,6 +638,7 @@ export enum AvailableUserActionLogTypes {
   btnDownloadManuscript = "btnDownloadManuscript",
   btnShare = "btnShare",
   btnPublish = "btnPublish",
+  btnAddComposition = "btnAddComposition",
   btnAddComponentFab = "btnAddComponentFab",
   btnAddComponentDrive = "btnAddComponentDrive",
   btnAddComponentDriveNewComponent = "btnAddComponentDriveNewComponent",

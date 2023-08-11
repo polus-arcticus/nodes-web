@@ -3,7 +3,7 @@ import { PresentationChartBarIcon } from "@heroicons/react/outline";
 import { lockScroll, restoreScroll } from "@components/utils";
 import { IconAuthor, IconHelp, IconNodeCollection, IconPiGraphFill } from "@icons";
 import PaneNodeCollection from "./PaneNodeCollection";
-import { Compose } from "./Compose";
+import { Compose } from "@src/components/organisms/Compositions/Compose";
 import PaneUserProfile from "./PaneUserProfile";
 import { app, site } from "@src/constants/routes";
 import { Link, useLocation } from "react-router-dom";
@@ -68,7 +68,7 @@ const buttons: ToolbarIconsProps[] = [
     Icon: IconPiGraphFill,
     Pane: Compose,
     name: TOOLBAR_ENTRY.compose,
-    route: `${site.app}${app.compose}`,
+    route: `${site.app}${app.compositions}`,
   },
   {
     Icon: IconAuthor,

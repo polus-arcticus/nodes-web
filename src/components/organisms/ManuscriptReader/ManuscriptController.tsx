@@ -63,6 +63,7 @@ interface State {
   componentToUse: DriveObject | null;
   forceRefreshDrive: boolean;
   showAddNewNode: boolean;
+  showAddNewComposition: boolean;
   addFilesWithoutContext: boolean;
 }
 
@@ -113,6 +114,7 @@ export const initialState: State = {
   showProfileUpdater: false,
   forceRefreshDrive: false,
   showAddNewNode: false,
+  showAddNewComposition: false,
   addFilesWithoutContext: false,
 };
 
