@@ -42,6 +42,9 @@ export type ResearchObjectStub = {
   metadata?: string[];
   links?: any;
 };
+export type CompositionObjectStub = {
+  title: string;
+};
 
 export const config = (preset?: AxiosRequestConfig): AxiosRequestConfig => {
   return {
@@ -112,6 +115,14 @@ export const getNodeVersionDetails = async (hash: string) => {
 export const createResearchObjectStub = async (obj: ResearchObjectStub) => {
   const { data } = await axios.post(
     `${SCIWEAVE_URL}/v1/nodes/createDraft`,
+    obj,
+    config()
+  );
+  return data;
+};
+export const createCompositionObjectStub = async (obj: CompositionObjectStub) => {
+  const { data } = await axios.post(
+    `${SCIWEAVE_URL}/v1/compositions/createDraft`,
     obj,
     config()
   );
@@ -208,6 +219,20 @@ export const __adminWaitlistPromote = async (id: string) => {
 export const getResearchObjectStub = async (id: string, shareId?: string) => {
   const { data } = await axios.get(
     `${SCIWEAVE_URL}/v1/nodes/${id}`,
+    config({
+      params: {
+        shareId: shareId,
+        g: process.env.REACT_APP_IPFS_RESOLVER_OVERRIDE
+          ? process.env.REACT_APP_IPFS_RESOLVER_OVERRIDE
+          : "",
+      },
+    })
+  );
+  return data;
+};
+export const getCompositionObjectStub = async (id: string, shareId?: string) => {
+  const { data } = await axios.get(
+    `${SCIWEAVE_URL}/v1/compositions/${id}`,
     config({
       params: {
         shareId: shareId,

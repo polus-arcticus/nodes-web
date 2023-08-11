@@ -6,9 +6,15 @@ import Modal from "@src/components/molecules/Modal";
 import PrimaryButton from "@src/components/atoms/PrimaryButton";
 import PlaceholderInput from "@src/components/molecules/FormInputs/PlaceholderInput";
 import DefaultSpinner from "@src/components/atoms/DefaultSpinner";
-
+import { 
+    AvailableUserActionLogTypes,
+    createCompositionObjectStub,
+    getCompositionObjectStub,
+    postUserAction
+ } from "@src/api";
 
 import { useNavigate } from "react-router-dom";
+import { a } from "react-spring";
 
 export const CreateCompositionModal = ({
     isOpen, onDismiss
@@ -21,6 +27,7 @@ export const CreateCompositionModal = ({
     const [isLoading, setIsLoading] = useState(false);
 
     const onClose = () => {
+        onDismiss?.()
     }
 
     const isValid = useMemo(() => {
@@ -61,23 +68,16 @@ export const CreateCompositionModal = ({
                 <PrimaryButton
                     disabled={isValid || isLoading}
                     onClick={() => {
-                        if (editingNodeParams) return handleEdit();
                         /**
-                         * Handle create new node
+                         * Handle create new collection
                          */
                         setTimeout(async () => {
                             setIsLoading(true);
                             try {
                                 const payload = {
-                                    title: manifestTitle || "",
-                                    defaultLicense: manifestLicense?.name,
-                                    researchFields,
-                                    links: {
-                                        pdf: [],
-                                        metadata: [],
-                                    },
+                                    title: compositionTitle || "",
                                 };
-                                const ros = await createResearchObjectStub(payload);
+                                const ros = await createCompositionObjectStub(payload);
 
                                 dispatch(setCurrentObjectId(""));
                                 const ro = (ros as any).node.uuid;
