@@ -14,6 +14,9 @@ export const endpoints = {
         cover: "nodes/cover/",
       },
     },
+    compositions: {
+      index: "/compositions",
+    },
     pub: {
       versions: "/pub/versions/",
     },

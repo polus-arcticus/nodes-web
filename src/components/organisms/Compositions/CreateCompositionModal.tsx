@@ -1,7 +1,9 @@
 import { useState, useEffect, useMemo } from "react";
 
 import { app, site } from "@src/constants/routes";
+import { tags } from "@src/state/api/tags";
 
+import { useSetter } from "@src/store/accessors";
 import Modal from "@src/components/molecules/Modal";
 import PrimaryButton from "@src/components/atoms/PrimaryButton";
 import PlaceholderInput from "@src/components/molecules/FormInputs/PlaceholderInput";
@@ -12,7 +14,11 @@ import {
     getCompositionObjectStub,
     postUserAction
  } from "@src/api";
-
+import { compositionsApi } from "@src/state/api/compositions";
+import { 
+    setCurrentCompositionId,
+    setCompositionManifest
+} from '@src/state/compositions/compositionReader';
 import { useNavigate } from "react-router-dom";
 import { a } from "react-spring";
 
@@ -22,6 +28,8 @@ export const CreateCompositionModal = ({
     isOpen: boolean;
     onDismiss: () => void;
 }) => {
+
+    const dispatch = useSetter();
     const navigate = useNavigate();
     const [compositionTitle, setCompositionTitle] = useState<string>("")
     const [isLoading, setIsLoading] = useState(false);
@@ -79,32 +87,28 @@ export const CreateCompositionModal = ({
                                 };
                                 const ros = await createCompositionObjectStub(payload);
 
-                                dispatch(setCurrentObjectId(""));
+                                dispatch(setCurrentCompositionId(""));
                                 const ro = (ros as any).node.uuid;
 
-                                dispatch(setCurrentObjectId(ro));
+                                dispatch(setCurrentCompositionId(ro));
                                 dispatch(
-                                    setManifest({
+                                    setCompositionManifest({
                                         version: 1,
-                                        title: manifestTitle || "",
-                                        defaultLicense: manifestLicense?.name,
-                                        components: [],
-                                        authors: [],
-                                        researchFields,
+                                        title: compositionTitle
                                     })
                                 );
 
-                                dispatch(setComponentStack([]));
-                                setIsAddingComponent(true);
+                                //dispatch(setComponentStack([]));
+                                //setIsAddingComponent(true);
                                 setIsLoading(false);
 
                                 onClose();
                                 setIsLoading(false);
 
                                 // refresh node collection
-                                dispatch(nodesApi.util.invalidateTags([{ type: tags.nodes }]));
+                                dispatch(compositionsApi.util.invalidateTags([{ type: tags.composition }]));
                                 navigate(
-                                    `${site.app}${app.nodes}/${RESEARCH_OBJECT_NODES_PREFIX}${ro}`
+                                    `${site.app}${app.compositions}/${ro}`
                                 );
 
                                 return;
@@ -115,9 +119,9 @@ export const CreateCompositionModal = ({
                                 setIsLoading(false);
                             }
                         });
-                        dispatch(setCurrentObjectId(""));
-                        dispatch(setPublicView(false));
-                        postUserAction(AvailableUserActionLogTypes.btnCreateNodeModalSave);
+                        dispatch(setCurrentCompositionId(""));
+                        //dispatch(setPublicView(false));
+                        postUserAction(AvailableUserActionLogTypes.btnCreateCompositionSave);
                     }}
                     className="h-10 text-lg flex gap-2"
                 >

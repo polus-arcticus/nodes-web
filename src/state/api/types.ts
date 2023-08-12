@@ -35,6 +35,17 @@ export interface ResearchNode {
   updatedAt: string;
   uuid: string;
 }
+export interface Composition {
+  cid: string;
+  createdAt: string;
+  index: VersionResponse[];
+  isPublished: boolean;
+  manifestUrl: string;
+  ownerId: number;
+  title: string;
+  updatedAt: string;
+  uuid: string;
+}
 
 export interface VersionResponse {
   id: string;

@@ -1,6 +1,7 @@
 export enum tags {
   user = "user",
   nodes = "nodes",
+  composition = 'composition',
   collection = "collection",
   nodeVersions = "nodeVersions",
   privateShare = "privateShare",

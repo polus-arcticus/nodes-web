@@ -704,6 +704,8 @@ export enum AvailableUserActionLogTypes {
   ctxDriveEditMetadata = "ctxDriveEditMetadata",
   btnCreateNewNode = "btnCreateNewNode",
   btnCreateNodeModalSave = "btnCreateNodeModalSave",
+  btnCreateNewComposition = "btnCreateNewComposition",
+  btnCreateCompositionSave = "btnCreateCompositionSave",
   errNodeCreate = "errNodeCreate",
   viewedNode = "viewedNode",
 }
