@@ -4,6 +4,7 @@ import {
   createRoutesFromElements,
   Navigate,
   Route,
+  Outlet
 } from "react-router-dom";
 
 import "flowbite"; // required for react tooltip
@@ -60,7 +61,8 @@ export const appRouter = createBrowserRouter(
         <Route path="admin/analytics" element={<AdminAnalyticsScreen />} />
         <Route path="invite" element={<Invite />} />
         <Route path="poi-lookup" element={<PoiLookup />} />
-        <Route path="compositions/*" element={<Compositions />}>
+        <Route path="compositions" element={<Outlet />}>
+          <Route index element={<Compositions />} />
           <Route path=":cid" element={<Compose />} />
         </Route>
         <Route path="nodes/*" element={<Nodes />}>

@@ -89,12 +89,15 @@ export const CreateCompositionModal = ({
 
                                 dispatch(setCurrentCompositionId(""));
                                 const ro = (ros as any).node.uuid;
-
+                                console.log('ros', ros)
+                                console.log('ro', ro)
                                 dispatch(setCurrentCompositionId(ro));
                                 dispatch(
                                     setCompositionManifest({
                                         version: 1,
-                                        title: compositionTitle
+                                        title: compositionTitle,
+                                        researchObjectCids: [],
+                                        components: [],
                                     })
                                 );
 
@@ -106,7 +109,7 @@ export const CreateCompositionModal = ({
                                 setIsLoading(false);
 
                                 // refresh node collection
-                                dispatch(compositionsApi.util.invalidateTags([{ type: tags.composition }]));
+                                dispatch(compositionsApi.util.invalidateTags([{ type: tags.compositions }]));
                                 navigate(
                                     `${site.app}${app.compositions}/${ro}`
                                 );

@@ -6,7 +6,7 @@ import { useNodeReader } from '@src/state/nodes/hooks';
 import { useGetNodesQuery } from '@src/state/api/nodes';
 export const Compose = () => {
     const floorPlane = new THREE.Plane(new THREE.Vector3(0,0,0), 0);
-
+    console.log('hello compose')
     const { data: nodes, isLoading } = useGetNodesQuery();
 
     useEffect(() => {
