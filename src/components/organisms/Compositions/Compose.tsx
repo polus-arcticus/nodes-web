@@ -17,11 +17,11 @@ export const Compose = () => {
     }, [isLoading])
     return (<>
     <Canvas 
-        style={{height:'100%', width:'100%'}}
+        style={{height:'100vh', width:'100vw'}}
         camera={{ position: [0, 0, 5], zoom: 1, up: [0, 0, 1], far: 10000 }}
     >
             <ambientLight intensity={0.5} />
-            <planeHelper args={[floorPlane, 10, "grey"]} />
+            <planeHelper args={[floorPlane, 10, "black"]} />
             <MapControls makeDefault />
     </Canvas> 
     </>)

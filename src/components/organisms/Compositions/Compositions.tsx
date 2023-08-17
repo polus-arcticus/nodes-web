@@ -1,29 +1,74 @@
 import { IconNodeCollection, IconPiGraphFill } from "@icons";
 import PrimaryButton from "@components/atoms/PrimaryButton";
 import PerfectScrollbar from "react-perfect-scrollbar";
-import NodeCardLoader from "@src/components/molecules/NodeCardLoader";
-
+import CompositionCardLoader from "@src/components/molecules/CompositionCardLoader";
+import CompositionCard from "@components/molecules/CompositionCard";
 import { useManuscriptController } from "@src/components/organisms/ManuscriptReader/ManuscriptController";
 import { useGetter, useSetter } from "@src/store/accessors";
-
+import { useNavigate } from "react-router";
+import { useGetCompositionsQuery } from "@src/state/api/compositions";
 import { AvailableUserActionLogTypes, postUserAction } from "@src/api";
 import { CreateCompositionModal } from "./CreateCompositionModal";
-const ComposeCollectionLoader = () => (
+
+import { app, site } from "@src/constants/routes";
+
+const CompositionCollectionEmptyState = () => <div className="flex-1 max-w-2xl w-full self-center flex justify-center items-center gap-6 pb-10">
+    <div className="max-w-sm">
+        <div className="text-base text-center font-bold text-white my-2">
+            Connect shrubberiees of knowlege
+        </div>
+        <div className="text-sm text-center text-neutrals-gray-5">
+            Select the “Create Composition” button above to begin connecting desci nodes together for new insights
+        </div>
+    </div>
+</div>
+const CompositionCollectionLoader = () => (
     <div className="max-w-2xl w-full self-center flex flex-col gap-6 animate-pulse h-full pb-10">
         {[1, 2, 3, 4, 5, 6, 7].map((i: number) => (
-            <NodeCardLoader key={`node-card-sidepanel-loader-${i}`} />
+            <CompositionCardLoader key={`node-card-sidepanel-loader-${i}`} />
         ))}
     </div>
 );
 
 
 export const Compositions = () => {
-    // "useGetCompositionsQuery"
-  //const { data: nodes, isLoading } = useGetNodesQuery();
-
   const { showAddNewComposition, setIsAddingComponent, setIsAddingSubcomponent, setShowAddNewComposition } =
     useManuscriptController(["showAddNewComposition"]);
   const dispatch = useSetter();
+  const navigate = useNavigate();
+  const { data: compositions, isLoading} = useGetCompositionsQuery()
+  console.log('compositions', compositions)
+  console.log('isLoading', isLoading)
+  const CompositionCollectionView = () => (
+    <div className="max-w-2xl w-full self-center flex flex-col gap-6 h-full pb-10">
+      {compositions &&
+        compositions?.map((composition) => (
+          <CompositionCard
+            {...composition}
+            composition={composition}
+            key={`node-card-sidepanel-${composition.uuid}`}
+            onClick={() => {
+              console.log('clicked')
+              //dispatch(setPublicView(false));
+              const targetUrl = `${site.app}${app.compositions}/${composition.uuid}`;
+              
+              setTimeout(() => {
+                navigate(targetUrl);
+                console.log("navigate", targetUrl);
+                setIsAddingComponent(false);
+                setIsAddingSubcomponent(false);
+                //dispatch(toggleResearchPanel(true));
+              });
+              //onClose();
+            }}
+          />
+        ))}
+    </div>
+  );
+
+  const LoadedCompositionsCollection = () =>
+    compositions?.length ? <CompositionCollectionView /> : <CompositionCollectionEmptyState />;
+
     return (
         <div
             className={`h-screen w-screen fixed left-0 pt-3 sm:pl-16 sm:pt-14 top-0 z-[102] will-change-transform transition-opacity duration-150 bg-neutrals-black opacity-100`}
@@ -57,11 +102,9 @@ export const Compositions = () => {
                         Create New Composition
                     </PrimaryButton>
                 </div>
-                {/*
                 <PerfectScrollbar className="overflow-y-scroll w-full justify-center flex h-full px-4 sm:px-0">
-                    {isLoading ? <NodeCollectionLoader /> : <LoadedNodesCollection />}
+                    {isLoading ? <CompositionCollectionLoader /> : <LoadedCompositionsCollection />}
                 </PerfectScrollbar>
-               */}
                 <CreateCompositionModal
                     isOpen={showAddNewComposition}
                     onDismiss={() => setShowAddNewComposition(false)}

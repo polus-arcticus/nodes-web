@@ -68,7 +68,7 @@ const buttons: ToolbarIconsProps[] = [
     Icon: IconPiGraphFill,
     Pane: Compose,
     name: TOOLBAR_ENTRY.compose,
-    route: `${site.app}${app.compositions}`,
+    route: `${site.app}${app.compositions}/start`,
   },
   {
     Icon: IconAuthor,

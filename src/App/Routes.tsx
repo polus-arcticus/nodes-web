@@ -61,10 +61,8 @@ export const appRouter = createBrowserRouter(
         <Route path="admin/analytics" element={<AdminAnalyticsScreen />} />
         <Route path="invite" element={<Invite />} />
         <Route path="poi-lookup" element={<PoiLookup />} />
-        <Route path="compositions" element={<Outlet />}>
-          <Route index element={<Compositions />} />
-          <Route path=":cid" element={<Compose />} />
-        </Route>
+        <Route path="compositions/start" element={<Compositions />}/>
+        <Route path="compositions/:cid" element={<Compose />} />
         <Route path="nodes/*" element={<Nodes />}>
           <Route path="start" element={<PaneNodeCollection />} />
           <Route path="objects/*">

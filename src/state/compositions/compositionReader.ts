@@ -16,7 +16,7 @@ export interface CompositionReaderPref {
     manifest?: CompositionObjectV1;
     manifestStatus: ManifestDataStatus;
     annotations: CompositionObjectComponentAnnotation[];
-    annotationsByPage: Record<number, RCompositionObjectComponentAnnotation[]>;
+    annotationsByPage: Record<number, CompositionObjectComponentAnnotation[]>;
 }
 const initialState: CompositionReaderPref = {
     currentCompositionId: "",
@@ -45,7 +45,7 @@ export const compositionReaderSlice = createSlice({
                         acc[pageIndex].push(annotation);
                     }
                     return acc;
-                }, {} as Record<number, ResearchObjectComponentAnnotation[]>);
+                }, {} as Record<number, CompositionObjectComponentAnnotation[]>);
             }
         },
         setCurrentCompositionId: (state, { payload }: PayloadAction<string>) => {
