@@ -3217,6 +3217,16 @@
   dependencies:
     "@react-spring/types" "~9.7.3"
 
+"@react-spring/three@^9.7.3", "@react-spring/three@~9.7.3":
+  version "9.7.3"
+  resolved "https://registry.yarnpkg.com/@react-spring/three/-/three-9.7.3.tgz#4358a0c4640efe2972c4f7d0f7cd4efe927471c1"
+  integrity sha512-Q1p512CqUlmMK8UMBF/Rj79qndhOWq4XUTayxMP9S892jiXzWQuj+xC3Xvm59DP/D4JXusXpxxqfgoH+hmOktA==
+  dependencies:
+    "@react-spring/animated" "~9.7.3"
+    "@react-spring/core" "~9.7.3"
+    "@react-spring/shared" "~9.7.3"
+    "@react-spring/types" "~9.7.3"
+
 "@react-spring/three@~9.6.1":
   version "9.6.1"
   resolved "https://registry.yarnpkg.com/@react-spring/three/-/three-9.6.1.tgz#095fcd1dc6509127c33c14486d88289b89baeb9d"
@@ -3226,16 +3236,6 @@
     "@react-spring/core" "~9.6.1"
     "@react-spring/shared" "~9.6.1"
     "@react-spring/types" "~9.6.1"
-
-"@react-spring/three@~9.7.3":
-  version "9.7.3"
-  resolved "https://registry.yarnpkg.com/@react-spring/three/-/three-9.7.3.tgz#4358a0c4640efe2972c4f7d0f7cd4efe927471c1"
-  integrity sha512-Q1p512CqUlmMK8UMBF/Rj79qndhOWq4XUTayxMP9S892jiXzWQuj+xC3Xvm59DP/D4JXusXpxxqfgoH+hmOktA==
-  dependencies:
-    "@react-spring/animated" "~9.7.3"
-    "@react-spring/core" "~9.7.3"
-    "@react-spring/shared" "~9.7.3"
-    "@react-spring/types" "~9.7.3"
 
 "@react-spring/types@~9.6.1":
   version "9.6.1"
@@ -3247,7 +3247,7 @@
   resolved "https://registry.yarnpkg.com/@react-spring/types/-/types-9.7.3.tgz#ea78fd447cbc2612c1f5d55852e3c331e8172a0b"
   integrity sha512-Kpx/fQ/ZFX31OtlqVEFfgaD1ACzul4NksrvIgYfIFq9JpDHFwQkMVZ10tbo0FU/grje4rcL4EIrjekl3kYwgWw==
 
-"@react-spring/web@~9.7.3":
+"@react-spring/web@^9.7.3", "@react-spring/web@~9.7.3":
   version "9.7.3"
   resolved "https://registry.yarnpkg.com/@react-spring/web/-/web-9.7.3.tgz#d9f4e17fec259f1d65495a19502ada4f5b57fa3d"
   integrity sha512-BXt6BpS9aJL/QdVqEIX9YoUy8CE6TJrU0mNCqSoxdXlIeNcEBWOfIyE6B14ENNsyQKS3wOWkiJfco0tCr/9tUg==
@@ -5354,24 +5354,12 @@
     "@typescript-eslint/types" "5.62.0"
     eslint-visitor-keys "^3.3.0"
 
-"@use-gesture/core@10.2.26":
-  version "10.2.26"
-  resolved "https://registry.yarnpkg.com/@use-gesture/core/-/core-10.2.26.tgz#c2fc4aa7d36cee7319a98a898b0698c66b01663e"
-  integrity sha512-NyFpQ3iID9iFBROXyyvU1D0NK+t+dP+WAVByhCvqHUenpxLD2NlRLVRpoK3XGGwksr6mU3PvZ2Nm4q0q+gLJPA==
-
 "@use-gesture/core@10.2.27":
   version "10.2.27"
   resolved "https://registry.yarnpkg.com/@use-gesture/core/-/core-10.2.27.tgz#0f24b17c036cd828ba07e3451ff45e2df959c6f5"
   integrity sha512-V4XV7hn9GAD2MYu8yBBVi5iuWBsAMfjPRMsEVzoTNGYH72tf0kFP+OKqGKc8YJFQIJx6yj+AOqxmEHOmx2/MEA==
 
-"@use-gesture/react@10.2.26":
-  version "10.2.26"
-  resolved "https://registry.yarnpkg.com/@use-gesture/react/-/react-10.2.26.tgz#593549fed30ebcac71cfd197993eaede0795c098"
-  integrity sha512-0QhaE5mhaQbFlip4MX7n1nwCX8gax6Da1LsP2fZ/BU6xW9zyEmV6NX7DPelDxq1rr2NiBJh30vx9RIp80YeA/A==
-  dependencies:
-    "@use-gesture/core" "10.2.26"
-
-"@use-gesture/react@^10.2.24":
+"@use-gesture/react@^10.2.24", "@use-gesture/react@^10.2.27":
   version "10.2.27"
   resolved "https://registry.yarnpkg.com/@use-gesture/react/-/react-10.2.27.tgz#7fbd50d14449ec5bc49c9b6cfef8a2845f5e0608"
   integrity sha512-7E5vnWCxeslWlxwZ8uKIcnUZVMTRMZ8cvSnLLKF1NkyNb3PnNiAzoXM4G1vTKJKRhgOTeI6wK1YsEpwo9ABV5w==
