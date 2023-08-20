@@ -8,18 +8,24 @@ import { animated } from '@react-spring/three'
 import { useSpring } from '@react-spring/web'
 import { useDrag, Vector2 } from '@use-gesture/react'
 
+import TooltipIcon from "@components/atoms/TooltipIcon";
+import { IconAdd } from "@icons";
 const CompositionNodeCard = ({
     nodeCid,
     colour,
     setIsDragging,
     floorPlane,
-    aspectRef
+    aspectRef,
+    activeNode,
+    setActiveNode
 }: {
     nodeCid: string,
     colour: string,
     setIsDragging: Dispatch<SetStateAction<boolean>>,
     floorPlane: THREE.Plane,
-    aspectRef: MutableRefObject<null>
+    aspectRef: MutableRefObject<null>,
+    activeNode: string | null,
+    setActiveNode: Dispatch<SetStateAction<string | null>>
 }) => {
     //const [{ x, y }, api] = useSpring(() => ({ x: 0, y: 0 }))
 
@@ -33,33 +39,41 @@ const CompositionNodeCard = ({
         position: pos,
         scale: 1,
         rotation: [0, 0, 0],
-        config: { friction: 1 }
     }));
-    const init:Vector2 = spring.position.get()
+    const init: Vector2 = spring.position.get()
 
     const bind = useDrag(
         ({
+            args = [nodeCid],
+            event,
             active,
             movement: [xMovement, yMovement],
             first,
             memo = { initialTranslateX: 0, initialTranslateY: 0 },
             canceled
         }) => {
-            setIsDragging(active)
-            const [translateX, translateY] = spring.position.get();
-            if (first) {
-                return {
-                    initialTranslateX: translateX,
-                    initialTranslateY: translateY
-                };
+            event.stopPropagation()
+            if (active && activeNode === nodeCid) {
+                setIsDragging(active)
+                const [translateX, translateY] = spring.position.get();
+                if (first) {
+                    return {
+                        initialTranslateX: translateX,
+                        initialTranslateY: translateY
+                    };
+                }
+                set({
+                    position: [
+                        memo.initialTranslateX + xMovement / aspectRef.current,
+                        memo.initialTranslateY - yMovement / aspectRef.current,
+                        0
+                    ]
+                });
             }
-            set({
-                position: [
-                    memo.initialTranslateX + xMovement / aspectRef.current,
-                    memo.initialTranslateY - yMovement / aspectRef.current,
-                    0
-                ]
-            });
+            if (!active) {
+                setActiveNode(null)
+                setIsDragging(false)
+            }
             return memo;
         },
         {
@@ -69,16 +83,61 @@ const CompositionNodeCard = ({
         }
     )
     return (
-        <animated.mesh {...spring} {...bind()}>
+        <animated.mesh
+            onClick={(event) => {
+                event.stopPropagation()
+                setActiveNode(nodeCid)
+            }}
+            {...spring} {...bind()}>
             <planeGeometry
                 attach="geometry"
                 args={[1, 1]}
             />
             <meshStandardMaterial color={colour} attach="material" transparent />
-        </animated.mesh>)
+        </animated.mesh>
+    )
+}
+const AddNodeModal = () => {
+    return (<>
+    </>)
+}
+const AddNodeButton = () => {
+    const [showAddModal, setShowAddModal] = useState(false)
+
+    const toggleAddModal = () => {
+        setShowAddModal(old => !old)
+    }
+    return (
+        <div className="fixed top-[50px] left-[58px] z-0">
+            <div className="rounded-full w-[50px] h-fit py-2 text-white fill-current bg-black m-8 flex items-center justify-center flex-col gap-3 drop-shadow-lg shadow-lg">
+                <TooltipIcon
+                    id="add-component-button"
+                    placement="bottom"
+                    tooltip="Add component"
+                    key={"tooltip-component-add"}
+                    tipClassName="w-36"
+                    offset={{ left: 10, top: 80 }}
+                    icon={
+                        <div
+                            className="bg-tint-primary hover:bg-tint-primary-dark cursor-pointer w-8 h-8 rounded-full flex items-center justify-center"
+                            onClick={() => {
+                                toggleAddModal()
+                                //lockScroll();
+                                //setAddFilesWithoutContext(true);
+                                //setIsAddingComponent(true);
+                                //postUserAction(AvailableUserActionLogTypes.btnAddComponentFab);
+                            }}
+                        >
+                            <IconAdd width={18} height={18} stroke="black" />
+                        </div>
+                    }
+                />
+            </div>
+        </div>)
 }
 export const Compose = () => {
     const { data: nodes, isLoading } = useGetNodesQuery();
+    const [activeNode, setActiveNode] = useState<string | null>("")
     const [isDragging, setIsDragging] = useState(false)
     const floorPlane = new THREE.Plane(new THREE.Vector3(0, 0, 0), 0);
     const aspectRef = useRef(null);
@@ -90,6 +149,7 @@ export const Compose = () => {
         }
     }, [isLoading])
     return (<>
+        <AddNodeButton />
         <Canvas
             onCreated={({ aspect, size, viewport }) => {
                 aspectRef.current = viewport.factor;
@@ -98,8 +158,9 @@ export const Compose = () => {
             camera={{ position: [0, 0, 5], zoom: 1, up: [0, 0, 1], far: 10000 }}
         >
             <ambientLight intensity={0.5} />
-            <planeHelper args={[floorPlane, '30', 'red']} />
-            <CompositionNodeCard nodeCid="hi" colour="blue" setIsDragging={setIsDragging} floorPlane={floorPlane} aspectRef={aspectRef} />
+            <planeHelper args={[floorPlane, 1000, 'red']} />
+            <CompositionNodeCard nodeCid="hi" activeNode={activeNode} setActiveNode={setActiveNode} colour="blue" setIsDragging={setIsDragging} floorPlane={floorPlane} aspectRef={aspectRef} />
+            <CompositionNodeCard nodeCid="there" activeNode={activeNode} setActiveNode={setActiveNode} colour="green" setIsDragging={setIsDragging} floorPlane={floorPlane} aspectRef={aspectRef} />
             <MapControls makeDefault enabled={!isDragging} />
         </Canvas>
     </>)
