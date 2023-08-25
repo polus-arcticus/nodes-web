@@ -1,7 +1,7 @@
 import { useState, useEffect, useCallback, Dispatch, SetStateAction, useRef, MutableRefObject } from 'react'
 import { ThreeEvent } from '@react-three/fiber';
 import { Canvas, useThree } from '@react-three/fiber'
-import { OrthographicCamera, MapControls } from '@react-three/drei';
+import { OrthographicCamera, MapControls, Html } from '@react-three/drei';
 import * as THREE from 'three'
 import { useNodeReader } from '@src/state/nodes/hooks';
 import { useGetNodesQuery } from '@src/state/api/nodes';
@@ -19,16 +19,16 @@ const CompositionNodeCard = ({
     setIsDragging,
     floorPlane,
     aspectRef,
-    activeNode,
-    setActiveNode
+    //activeNode,
+    //setActiveNode
 }: {
     node: ResearchNode,
     colour: string,
     setIsDragging: Dispatch<SetStateAction<boolean>>,
     floorPlane: THREE.Plane,
     aspectRef: MutableRefObject<null>,
-    activeNode: string | null,
-    setActiveNode: Dispatch<SetStateAction<string | null>>
+    //</null>activeNode: string | null,
+    //</SetStateAction>setActiveNode: Dispatch<SetStateAction<string | null>>
 }) => {
     //const [{ x, y }, api] = useSpring(() => ({ x: 0, y: 0 }))
 
@@ -45,9 +45,10 @@ const CompositionNodeCard = ({
     }));
     const init: Vector2 = spring.position.get()
 
+
     const bind = useDrag(
         ({
-            args = [node],
+            args = [node.uuid],
             event,
             active,
             movement: [xMovement, yMovement],
@@ -56,7 +57,7 @@ const CompositionNodeCard = ({
             canceled
         }) => {
             event.stopPropagation()
-            if (active && activeNode === node.cid) {
+            if (active) {
                 setIsDragging(active)
                 const [translateX, translateY] = spring.position.get();
                 if (first) {
@@ -74,7 +75,7 @@ const CompositionNodeCard = ({
                 });
             }
             if (!active) {
-                setActiveNode(null)
+                //setActiveNode(null)
                 setIsDragging(false)
             }
             return memo;
@@ -88,14 +89,21 @@ const CompositionNodeCard = ({
     return (
         <animated.mesh
             onClick={(event) => {
-                console.log('hi')
+                console.log('click mesh')
+                console.log(node.uuid, 'node.uuid')
+                //setActiveNode(node.uuid)
+                console.log('trying to set activenode', activeNode)
                 event.stopPropagation()
-                setActiveNode(node.cid)
             }}
             {...spring} {...bind()}>
+            <Html
+            distanceFactor={10}
+            >
+                <p className="text-white">{node.title}</p>
+            </Html>
             <planeGeometry
                 attach="geometry"
-                args={[1, 1]}
+                args={[3, 5]}
             />
             <meshStandardMaterial color={colour} attach="material" transparent />
         </animated.mesh>
@@ -131,7 +139,6 @@ const AddNodeModal = ({
                     {...node}
                     node={node}
                     onClick={() => {
-                        console.log('clicked')
                         handleAddNode(node)
                         //dispatch(setPublicView(false));
                         //const targetUrl = `${site.app}${app.nodes}/${RESEARCH_OBJECT_NODES_PREFIX}${node.uuid}`;
@@ -173,7 +180,6 @@ const AddNodeButton = ({
                         <div
                             className="bg-tint-primary hover:bg-tint-primary-dark cursor-pointer w-8 h-8 rounded-full flex items-center justify-center"
                             onClick={() => {
-                                console.log('hi')
                                 setShowAddModal(old => !old)
 
                                 //lockScroll();
@@ -191,7 +197,7 @@ const AddNodeButton = ({
 }
 export const Compose = () => {
     const { data: nodes, isLoading } = useGetNodesQuery();
-    const [activeNode, setActiveNode] = useState<string | null>("")
+    //const [activeNode, setActiveNode] = useState<string | null>("")
     const [isDragging, setIsDragging] = useState(false)
     const floorPlane = new THREE.Plane(new THREE.Vector3(0, 0, 0), 0);
     const aspectRef = useRef(null);
@@ -206,11 +212,9 @@ export const Compose = () => {
         console.log('handlingaddnode')
         setNodeCards(old => [...old,
             <CompositionNodeCard
-                key={node.cid + Math.random()}
+                key={node.uuid}
                 node={node}
-                activeNode={activeNode}
-                setActiveNode={setActiveNode}
-                colour="blue"
+                colour="#0d1117"
                 setIsDragging={setIsDragging}
                 floorPlane={floorPlane}
                 aspectRef={aspectRef}
