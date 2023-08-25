@@ -33,7 +33,7 @@ nodes:
 
 .PHONY: install
 install:
-	yarn
+	yarn --version
 
 .PHONY: clean
 clean:

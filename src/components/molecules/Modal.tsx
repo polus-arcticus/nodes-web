@@ -121,7 +121,7 @@ export default function Modal({
               initialFocusRef={initialFocusRef}
               dangerouslyBypassFocusLock={true}
               style={{
-                opacity: opacity.to({ range: [0.0, 1.0], output: [0, 1] }),
+                opacity: opacity.to({ range: [1.0, 1.0], output: [1, 1] }),
               }}
               $scrollOverlay={$scrollOverlay}
               $padOverlay={$padOverlay}

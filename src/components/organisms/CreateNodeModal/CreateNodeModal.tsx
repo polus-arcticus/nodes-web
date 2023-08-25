@@ -232,7 +232,9 @@ export default memo(function CreateNodeModal({
           className="mt-2"
           value={manifestLicense}
           labelRenderer={licenseSelectLabelRenderer}
-          onSelect={(value: any) => setManifestLicense(value)}
+          onSelect={(value: any) => {
+            console.log('hi')
+            setManifestLicense(value)}}
         />
         <p className="text-neutrals-gray-5 text-sm mt-2">
           {manifestLicense &&

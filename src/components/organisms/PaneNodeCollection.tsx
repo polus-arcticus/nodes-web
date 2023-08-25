@@ -128,6 +128,7 @@ export default React.memo(function PaneNodeCollection() {
           </div>
           <PrimaryButton
             onClick={() => {
+              console.log('hi')
               dispatch(setPublicView(false));
               setShowAddNewNode(true);
               postUserAction(AvailableUserActionLogTypes.btnCreateNewNode);
@@ -144,6 +145,7 @@ export default React.memo(function PaneNodeCollection() {
           isOpen={showAddNewNode}
           onDismiss={() => setShowAddNewNode(false)}
         />
+        <p>should be open: {String(showAddNewNode)}</p>
       </div>
     </div>
   );

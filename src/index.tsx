@@ -1,7 +1,7 @@
 import React from "react";
 import ReactDOM from "react-dom";
 import { RouterProvider } from "react-router-dom";
-
+import { createRoot} from 'react-dom/client'
 import "flowbite"; // required for react tooltip
 import "react-loading-skeleton/dist/skeleton.css";
 // fix ugly scrollbars in windows browsers
@@ -33,8 +33,9 @@ if (
     tracesSampleRate: 1.0,
   });
 }
-
-ReactDOM.render(
+const container = document.getElementById('root');
+const root = createRoot(container!)
+root.render(
   <React.StrictMode>
     <Provider store={store}>
       <PersistGate loading={null} persistor={persistor}>
@@ -43,8 +44,7 @@ ReactDOM.render(
         </AppProviders>
       </PersistGate>
     </Provider>
-  </React.StrictMode>,
-  document.getElementById("root")
+  </React.StrictMode>
 );
 
 // If you want to start measuring performance in your app, pass a function

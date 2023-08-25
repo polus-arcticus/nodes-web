@@ -5,6 +5,7 @@ nohup.out
 /node_modules
 /.pnp
 .pnp.js
+.yarn/cache
 
 # testing
 /coverage
