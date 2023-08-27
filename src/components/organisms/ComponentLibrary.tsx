@@ -18,6 +18,7 @@ import {
   IconExternalComponents,
   IconIpfs,
   IconPlay,
+  IconKamu
 } from "@icons";
 import { useManuscriptController } from "@src/components/organisms/ManuscriptReader/ManuscriptController";
 import {
@@ -156,6 +157,14 @@ export const COMPONENT_LIBRARY: UiComponentDefinition[] = [
     title: "Unknown",
     componentType: ResearchObjectComponentType.UNKNOWN,
     doNotRender: true,
+  },
+  {
+    icon: (props) => (
+      <IconWrapper Icon={IconKamu} fill="none" {...props} />
+    ),
+    title: "Kamu Manifest",
+    componentType: ResearchObjectComponentType.KAMU_MANIFEST,
+    componentSubtype: ResearchObjectComponentLinkSubtype.OTHER,
   },
 ];
 export const EXTERNAL_COMPONENTS: UiComponentDefinition[] = [

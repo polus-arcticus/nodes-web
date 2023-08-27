@@ -155,7 +155,7 @@ import { ReactComponent as IconGoogleScholar } from "@images/google_scholar.svg"
 import { ReactComponent as IconAffiliation } from "@images/affiliation.svg";
 import { ReactComponent as IconRor } from "@images/ror.svg";
 import { ReactComponent as IconPiGraphFill } from '@images/icons/pi-graph-fill.svg';
-
+import { ReactComponent as IconKamu } from '@images/icons/kamu-logo.svg'
 export type SvgIconProps = FC<
   React.SVGProps<SVGSVGElement> & {
     title?: string | undefined;
@@ -321,5 +321,6 @@ export {
   IconGoogleScholar,
   IconAffiliation,
   IconRor,
-  IconPiGraphFill
+  IconPiGraphFill,
+  IconKamu
 };

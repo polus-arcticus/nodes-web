@@ -98,8 +98,16 @@ const CompositionNodeCard = ({
             {...spring} {...bind()}>
             <Html
             distanceFactor={10}
+            style={{
+                width: '100%',
+                height: '100%',
+                display: 'grid',
+                gridTemplateColumns: 'repeat(3,1fr)',
+                gridTemplateRows: 'repeat(3,1fr)',
+
+            }}
             >
-                <p className="text-white">{node.title}</p>
+                <p  style={{display: 'grid', gridRow: 1, gridColumn: 1}} className="text-white">{node.title}</p>
             </Html>
             <planeGeometry
                 attach="geometry"
