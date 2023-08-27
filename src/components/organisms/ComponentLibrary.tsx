@@ -163,8 +163,8 @@ export const COMPONENT_LIBRARY: UiComponentDefinition[] = [
       <IconWrapper Icon={IconKamu} fill="none" {...props} />
     ),
     title: "Kamu Manifest",
-    componentType: ResearchObjectComponentType.KAMU_MANIFEST,
-    componentSubtype: ResearchObjectComponentLinkSubtype.OTHER,
+    componentType: ResearchObjectComponentType.KAMU_MANIFEST
+
   },
 ];
 export const EXTERNAL_COMPONENTS: UiComponentDefinition[] = [

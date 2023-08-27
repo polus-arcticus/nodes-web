@@ -22,6 +22,7 @@ import {
 } from "@desci-labs/desci-models";
 import AddLinkComponent from "@components/molecules/AddComponentFlow/AddLinkComponent";
 import AddDataComponent from "@components/molecules/AddComponentFlow/AddDataComponent";
+import AddKamuManifestComponent from "@components/molecules/AddComponentFlow/AddKamuManifestComponent";
 import { SpinnerCircular } from "spinners-react";
 import { useNodeReader } from "@src/state/nodes/hooks";
 import { useSetter } from "@src/store/accessors";
@@ -60,6 +61,10 @@ export const componentData = {
   },
   [ResearchObjectComponentType.LINK]: {
     name: "Link",
+    avatar: <IconDataSquare className="mx-auto h-[8px] w-[8px]" />,
+  },
+  [ResearchObjectComponentType.KAMU_MANIFEST]: {
+    name: "Kamu Manifest",
     avatar: <IconDataSquare className="mx-auto h-[8px] w-[8px]" />,
   },
   // {
@@ -181,6 +186,14 @@ const AddComponentPopOver = (
             setSubtype={setAddComponentSubtype}
           />
         );
+      case ResearchObjectComponentType.KAMU_MANIFEST:
+        return (
+          <AddKamuManifestComponent
+            files={files}
+            clearAllFiles={clearAllFiles}
+            setFiles={setFiles}
+           />
+        )
       default:
         return;
     }
@@ -198,6 +211,8 @@ const AddComponentPopOver = (
         );
       case ResearchObjectComponentType.LINK:
         return !validateLink(urlOrDoi || "");
+      case ResearchObjectComponentType.KAMU_MANIFEST:
+        return !(files.length)
       default:
         return false;
     }
